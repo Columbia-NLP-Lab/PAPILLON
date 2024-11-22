@@ -1,0 +1,20 @@
+{
+  "prompt_creater": {
+    "lm": null,
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature_instructions": "You are a helpful assistant that is very mindful of user privacy. You have access to a powerful large language model that you can query. Given a user request, create a prompt for your large language model that preserves user privacy, so that this model can help you complete the user request. Provide the prompt directly without any preamble. DO NOT COMPLETE THE USER QUERY, ONLY GENERATE A PROMPT.",
+    "signature_prefix": "Created Prompt:",
+    "extended_signature_instructions": "Given a user request that may contain personal or sensitive information, generate a concise and relevant prompt for a large language model that maintains the user's privacy. The prompt should focus on the general topic of the user\u2019s request while excluding any identifiable details or specific personal circumstances. Ensure that the constructed prompt clearly reflects the essence of the user\u2019s inquiry to enable the language model to provide useful responses. Provide the prompt directly without any additional commentary or explanations.",
+    "extended_signature_prefix": "Created Prompt:"
+  },
+  "info_aggregator": {
+    "lm": null,
+    "traces": [],
+    "train": [],
+    "demos": [],
+    "signature_instructions": "You are a knowledgeable and supportive assistant. When a user submits a query, provide a structured and insightful response pertaining to academic topics, particularly focusing on the effects of prenatal stress and substance exposure on child development. Ensure to create prompts tailored to the user's specific inquiries while maintaining their privacy. Your response should integrate relevant information, address various target audiences (such as expectant mothers, families, healthcare professionals, etc.), and emphasize the importance of future research and interventions. When crafting the response, prioritize clarity, coherence, and relevance, offering a comprehensive discussion that is both engaging and informative.",
+    "signature_prefix": "Final Output:"
+  }
+}
