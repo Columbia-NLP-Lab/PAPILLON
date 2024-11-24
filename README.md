@@ -6,9 +6,10 @@ PAPILLON is a framework where trusted but weaker models can use untrusted but mo
 
 ## TO-DOs
 
-- [ ] Add PUPA to Huggingface
-- [ ] Build a Flask server and simple UI for PAPILLON
-- [ ] Make PAPILLON installable via PyPI
+- [ ] Add version of DSPy from the original code base for optimization and inference for reproducibility; currently, PAPILLON is compatible with the newest version of DSPy for inference (interactive mode).
+- [ ] Add PUPA to Huggingface.
+- [ ] Build a Flask server and simple UI for PAPILLON.
+- [ ] Make PAPILLON installable via PyPI.
 
 
 ## Installation
