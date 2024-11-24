@@ -76,7 +76,7 @@ if __name__ == "__main__":
     parser.add_argument("--data_file", type=str, help="The csv containing PUPA-format data for optimization")
     args = parser.parse_args()
 
-    local_lm = dspy.LM('openai/default', api_base=f"http://127.0.0.1:{args.port}/v1", api_key="", max_tokens=4000, stop=('\n\n---',))
+    local_lm = dspy.LM('openai/default', api_base=f"http://127.0.0.1:{args.port}/v1", api_key="", max_tokens=4000)
     dspy.configure(lm=local_lm)
 
     openai_lm = dspy.OpenAI(model=args.openai_model, max_tokens=4000)

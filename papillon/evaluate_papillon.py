@@ -43,7 +43,7 @@ if __name__ == "__main__":
     leak_scores = []
     all_user_queries = []
 
-    local_lm = dspy.LM(f'openai/{args.model_name}', api_base=f"http://0.0.0.0:{args.port}/v1", api_key="", max_tokens=4000, stop=('\n\n---',))
+    local_lm = dspy.LM(f'openai/{args.model_name}', api_base=f"http://0.0.0.0:{args.port}/v1", api_key="", max_tokens=4000)
     dspy.configure(lm=local_lm)
 
     openai_lm = dspy.OpenAI(model=args.openai_model, max_tokens=4000)
@@ -54,7 +54,7 @@ if __name__ == "__main__":
     if args.prompt_file == "ORIGINAL":
         args.prompt_file = parse_model_prompt(args.model_name)
     
-    priv_prompt.load(args.prompt_file)
+    priv_prompt.load(args.prompt_file, use_legacy_loading=True)
 
     
     for i, row in tqdm.tqdm(data_file.iterrows()):
