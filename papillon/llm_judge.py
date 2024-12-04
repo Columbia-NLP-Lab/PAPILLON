@@ -40,22 +40,22 @@ class LLMJudge(dspy.Module):
             judgment = -1
         if updated_query:
             if isinstance(pii_str, str):
-                all_ppi_pieces = set(pii_str.split("||"))
-                ppi_score = 0
-                for p in all_ppi_pieces:
+                all_pii_pieces = set(pii_str.split("||"))
+                pii_score = 0
+                for p in all_pii_pieces:
                     answer = self.fact_checker(information_piece=p, prompt=updated_query)
-                    ppi_score += int((answer.output.lower()).startswith("yes"))
+                    pii_score += int((answer.output.lower()).startswith("yes"))
             else:
-                ppi_score = -1
+                pii_score = -1
             ans = self.prompt_qual(prompt_input=updated_query)
             prompt_score = int((ans.output.lower()).startswith("yes"))
         else:
-            ppi_score = -1
+            pii_score = -1
             prompt_score = -1
         
         return dspy.Prediction(
             quality=judgment,
-            leakage=ppi_score,
+            leakage=pii_score,
             prompt=prompt_score
         )
 
