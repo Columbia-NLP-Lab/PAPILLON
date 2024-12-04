@@ -95,6 +95,9 @@ Please see the `pupa` directory for raw CSV files for **PUPA-TNB** and **PUPA-Ne
 If you have new user-assistant interaction data containing private information and you want to process it to the PUPA data format, you can use code in the `pupa` directory to scaffold this process.
 
 ## Citation
+Here is [the original paper](https://arxiv.org/abs/2410.17127).
+
+If you use PAPILLON in your work, please consider citing it:
 ```
 @article{siyan2024papillon,
   title={PAPILLON: PrivAcy Preservation from Internet-based and Local Language MOdel ENsembles},
