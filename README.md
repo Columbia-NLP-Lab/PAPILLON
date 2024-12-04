@@ -12,6 +12,8 @@ PAPILLON is a framework where trusted but weaker models can use untrusted but mo
 - [ ] Build a Flask server and simple UI for PAPILLON.
 - [ ] Make PAPILLON installable via PyPI.
 
+## Getting Started
+We have an end-to-end tutorial for defining and optimizing your own PAPILLON module using our PUPA dataset. Please refer to `papillon_tutorial.ipynb`.
 
 ## Installation
 We are working on making PAPILLON a PyPI package. Until then, you would unfortunately need to clone the repository first.
