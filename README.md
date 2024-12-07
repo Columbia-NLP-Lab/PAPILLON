@@ -13,7 +13,11 @@ PAPILLON is a framework where trusted but weaker models can use untrusted but mo
 - [ ] Make PAPILLON installable via PyPI.
 
 ## Getting Started
-We have an end-to-end tutorial for defining and optimizing your own PAPILLON module using our PUPA dataset. Please refer to `papillon_tutorial.ipynb`.
+### To Reproduce Our Results
+Please refer to the `papillon_v1.0` branch for the original version of our code and data to reproduce the results.
+
+### To Use PAPILLON on Your Own Data
+We have an end-to-end tutorial for defining and optimizing your own PAPILLON module using our newest version of PUPA dataset. Please refer to `papillon_tutorial.ipynb`.
 
 ## Installation
 We are working on making PAPILLON a PyPI package. Until then, you would unfortunately need to clone the repository first.
@@ -30,8 +34,6 @@ Provide your OpenAI API Key:
 ```
 export OPENAI_API_KEY="<YOUR_OPENAI_API_KEY>"
 ```
-
-<!-- commit ee8206ea7ce14630b3e64d2b997878169dee3252 -->
 
 ## Using PAPILLON
 
