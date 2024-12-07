@@ -1,37 +1,23 @@
-# PAPILLON
+# PAPILLON v1.0
 
-PAPILLON is a framework where trusted but weaker models can use untrusted but more powerful models as tools in order to preserve user inference-time privacy.
-
-![An overview of PAPILLON](figs/1.png)
-
-## TO-DOs
-
-- [ ] Add version of DSPy from the original code base for optimization and inference for reproducibility; currently, PAPILLON is compatible with the newest version of DSPy for inference (interactive mode).
-- [x] Complete PUPA data processing code.
-- [ ] Add PUPA to Huggingface.
-- [ ] Build a Flask server and simple UI for PAPILLON.
-- [ ] Make PAPILLON installable via PyPI.
-
-## Getting Started
-We have an end-to-end tutorial for defining and optimizing your own PAPILLON module using our PUPA dataset. Please refer to `papillon_tutorial.ipynb`.
+This branch contains code and data needed to replicate our original paper, [PAPILLON: PrivAcy Preservation from Internet-based and Local Language MOdel ENsembles](https://arxiv.org/abs/2410.17127). We have done some cleanup of the code base but the semantics are left unchanged.
 
 ## Installation
-We are working on making PAPILLON a PyPI package. Until then, you would unfortunately need to clone the repository first.
 
 To create a conda environment to run PAPILLON in, run the following command:
 
-```
-conda create -f environment.yml
-conda activate papillon
+```bash
+conda create -n papillon python=3.10
+pip install openai pandas sglang[all]
+# Install a specific commit of DSPy
+pip install git+https://github.com/stanfordnlp/dspy.git@commit ee8206ea7ce14630b3e64d2b997878169dee3252
 ```
 
 Provide your OpenAI API Key:
 
-```
+```bash
 export OPENAI_API_KEY="<YOUR_OPENAI_API_KEY>"
 ```
-
-<!-- commit ee8206ea7ce14630b3e64d2b997878169dee3252 -->
 
 ## Using PAPILLON
 
@@ -57,14 +43,14 @@ We currently have optimized PAPILLON prompts for the following models:
 
 There are multiple options to host these models. For Llama-3.2, the current official method of hosting is via [VLLM](https://docs.vllm.ai/en/latest/). You can also host the 1B and 3B models on [Ollama](https://ollama.com/library/llama3.2). The other models can be hosted through [SGLang](https://sgl-project.github.io/). Here, we use SGLang as an example:
 
-```
+```bash
 python -m sglang.launch_server --model-path meta-llama/Llama-3.1-8B-Instruct --port <PORT_NUMBER>
 ```
 
 ### Pipeline Optimization
-You may use PUPA data or your new data, formatted according to the PUPA format (see `pupa`), to optimize PAPILLON pipelines with different local and API-based model ensembles.
+Use the original version of PUPA to optimize PAPILLON pipelines with different local and API-based model ensembles.
 
-```
+```bash
 cd papillon
 
 python3 run_dspy_optimization_llama.py --port <PORT_NUMBER> --prompt_output "output.json" --data_file "../pupa/PUPA_New.csv"
@@ -74,37 +60,11 @@ python3 run_dspy_optimization_llama.py --port <PORT_NUMBER> --prompt_output "out
 
 This will print out the average quality and leakage scores according to the LLM judge defined in `papillon/llm_judge.py`.
 
-```
+```bash
 cd papillon
 
 python3 evaluate_papillon.py --port <PORT_NUMBER> --model_name <MODEL_NAME> (e.g. meta-llama/Llama-3.1-8B-Instruct)
 ```
 
-### Running PAPILLON Interactively
-
-This script should display a terminal prompt that allows you to type in your user queries manually, and then print out the corresponding PAPILLON-synthesized privacy-preserving prompt and final PAPILLON responses.
-
-```
-cd papillon
-
-python3 run_papillon_interactive.py --port <PORT_NUMBER> --model_name <MODEL_NAME>
-```
-
 ## PUPA Dataset
-Please see the `pupa` directory for raw CSV files for **PUPA-TNB** and **PUPA-New** datasets. We are currently working on moving the datasets to Huggingface for easier access.
-
-## Adding New Data
-If you have new user-assistant interaction data containing private information and you want to process it to the PUPA data format, you can use code in the `pupa` directory to scaffold this process.
-
-## Citation
-Here is [the original paper](https://arxiv.org/abs/2410.17127).
-
-If you use PAPILLON in your work, please consider citing it:
-```
-@article{siyan2024papillon,
-  title={PAPILLON: PrivAcy Preservation from Internet-based and Local Language MOdel ENsembles},
-  author={Siyan, Li and Raghuram, Vethavikashini Chithrra and Khattab, Omar and Hirschberg, Julia and Yu, Zhou},
-  journal={arXiv preprint arXiv:2410.17127},
-  year={2024}
-}
-```
+Please see the `pupa` directory for raw CSV files for **PUPA-TNB** and **PUPA-New** datasets. These are the original versions of the dataset, so they are not the most up-to-date. To find the most up-to-date version of PUPA, please refer to the main branch and the corresponding Huggingface repository.
