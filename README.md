@@ -14,7 +14,7 @@ So, we built PAPILLON.
 
 PAPILLON is a semi-local framework where **trusted but weaker** models (e.g. locally-hosted Llama-3 models) can use **untrusted but more powerful** models as **tools** in order to preserve user inference-time privacy.
 
-![An overview of PAPILLON](figs/1.png)
+<img src="https://drive.google.com/uc?export=view&id=1_65eiWab8cDs3XqP-gNY6i-CDvvEmI56" alt="Overview of the PAPILLON pipeline" height="250"/>
 
 
 ## Getting Started
