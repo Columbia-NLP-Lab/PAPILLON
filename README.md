@@ -103,7 +103,7 @@ python3 evaluate_papillon.py --port <PORT_NUMBER> --model_name <MODEL_NAME> (e.g
 
 
 ## PUPA Dataset
-Please see the `pupa` directory for raw CSV files for **PUPA-TNB** and **PUPA-New** datasets. We are currently working on moving the datasets to Huggingface for easier access.
+You can find PUPA on [Huggingface](https://huggingface.co/datasets/Columbia-NLP/PUPA). You can also see the `pupa` directory for raw CSV files for **PUPA-TNB** and **PUPA-New** datasets. 
 
 ## Adding New Data
 If you have new user-assistant interaction data containing private information and you want to process it to the PUPA data format, you can use code in the `pupa` directory to scaffold this process.
