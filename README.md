@@ -112,7 +112,7 @@ If you have new user-assistant interaction data containing private information a
 
 - [x] Add version of DSPy from the original code base for optimization and inference for reproducibility; currently, PAPILLON is compatible with the newest version of DSPy for inference (interactive mode).
 - [x] Complete PUPA data processing code.
-- [ ] Add PUPA to Huggingface.
+- [x] Add PUPA to Huggingface.
 - [ ] Build a Flask server and simple UI for PAPILLON.
 - [ ] Make PAPILLON installable via PyPI.
 
