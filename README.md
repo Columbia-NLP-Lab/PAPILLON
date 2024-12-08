@@ -78,7 +78,7 @@ This script should display a terminal prompt that allows you to type in your use
 ```
 cd papillon
 
-python3 run_papillon_interactive.py --port <PORT_NUMBER> --model_name <MODEL_NAME> --prompt_file <PATH_TO_PROMPT_FILE>
+python3 run_papillon_interactive.py --port <PORT_NUMBER> --model_name <MODEL_NAME>
 ```
 
 
