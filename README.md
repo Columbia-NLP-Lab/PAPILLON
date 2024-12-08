@@ -20,7 +20,9 @@ PAPILLON is a semi-local framework where **trusted but weaker** models (e.g. loc
 ## Getting Started
 
 ### To Use PAPILLON on Your Own Data
-We have an **end-to-end** tutorial for defining and optimizing your own PAPILLON module using our newest version of PUPA dataset. Please refer to `papillon_tutorial.ipynb`.
+We have an **end-to-end** tutorial notebook for defining and optimizing your own PAPILLON module using our newest version of PUPA dataset. Please click on the Colab badge below, or refer to the `papillon_tutorial.ipynb` file.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/siyan-sylvia-li/PAPILLON/blob/main/papillon_tutorial.ipynb)
 
 ### To Reproduce Our Results
 Please refer to the `papillon_v1.0` branch for the original version of our code and data to reproduce the results.
