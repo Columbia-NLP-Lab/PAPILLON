@@ -16,6 +16,7 @@ PAPILLON is a semi-local framework where **trusted but weaker** models (e.g. loc
 
 <img src="https://drive.google.com/uc?export=view&id=1_65eiWab8cDs3XqP-gNY6i-CDvvEmI56" alt="Overview of the PAPILLON pipeline" height="250"/>
 
+:warning: $$\color{red}\text{PAPILLON is a research system to study the capabilities and interactions of local and remote LMs.}$$ **Don't ask it real private questions (yet)!!** Soon, we will allow you to preview the prompts sent to the API-based LLM, so that you can manually interject!!
 
 ## Getting Started
 
