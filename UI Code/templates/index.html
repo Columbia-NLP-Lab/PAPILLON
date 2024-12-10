@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAPPILON INTERFACE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output-container {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PAPPILON INTERFACE</h1>
+        
+        <div>
+            <h3>User Query</h3>
+            <textarea id="userQuery" placeholder="Enter your query here..."></textarea>
+            <button onclick="generatePrompt()">Generate Prompt</button>
+        </div>
+
+        <div>
+            <h3>Generated Prompt (Editable)</h3>
+            <textarea id="promptEditor" placeholder="Generated prompt will appear here..."></textarea>
+            <button onclick="processPrompt()">Process Edited Prompt</button>
+        </div>
+
+        <div class="output-container">
+            <h3>Output (Editable)</h3>
+            <textarea id="output" placeholder="Output will appear here..."></textarea>
+            <div class="button-group">
+                <button onclick="saveOutput()">Save Changes</button>
+                <button onclick="resetOutput()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let originalOutput = '';
+
+        async function generatePrompt() {
+            const query = document.getElementById('userQuery').value;
+            
+            try {
+                const response = await fetch('/generate_prompt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query: query })
+                });
+                
+                const data = await response.json();
+                document.getElementById('promptEditor').value = data.prompt;
+                // Store original prompt for comparison
+                document.getElementById('promptEditor').setAttribute('data-original', data.prompt);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function processPrompt() {
+            const originalPrompt = document.getElementById('promptEditor').getAttribute('data-original') || '';
+            const editedPrompt = document.getElementById('promptEditor').value;
+            
+            try {
+                const response = await fetch('/process_prompt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        original_prompt: originalPrompt,
+                        edited_prompt: editedPrompt
+                    })
+                });
+                
+                const data = await response.json();
+                const outputTextarea = document.getElementById('output');
+                outputTextarea.value = data.output;
+                originalOutput = data.output; // Store the original output
+                
+                // Store the edit record if needed
+                console.log('Edit record:', data.edit_record);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function saveOutput() {
+            const outputTextarea = document.getElementById('output');
+            originalOutput = outputTextarea.value;
+            alert('Changes saved successfully!');
+        }
+
+        function resetOutput() {
+            const outputTextarea = document.getElementById('output');
+            outputTextarea.value = originalOutput;
+        }
+    </script>
+</body>
+</html>
+
+
