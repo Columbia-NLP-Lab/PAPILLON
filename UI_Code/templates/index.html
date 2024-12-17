@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAPPILON INTERFACE</title>
+    <title>PAPILLON Interface</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -47,24 +47,25 @@
             gap: 10px;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>PAPPILON INTERFACE</h1>
+        <h1>PAPILLON INTERFACE</h1>
         
         <div>
             <h3>User Query</h3>
             <textarea id="userQuery" placeholder="Enter your query here..."></textarea>
-            <button onclick="generatePrompt()">Generate Prompt</button>
+            <button onclick="generatePrompt()" id="promptCreatorBtn"><i class="fa fa-spinner fa-spin" id="loading1" style="display: none;"></i> Generate Prompt</button>
         </div>
 
         <div>
             <h3>Generated Prompt (Editable)</h3>
             <textarea id="promptEditor" placeholder="Generated prompt will appear here..."></textarea>
-            <button onclick="processPrompt()">Process Edited Prompt</button>
+            <button onclick="processPrompt()" id="infoAggBtn"><i class="fa fa-spinner fa-spin" id="loading2" style="display: none;"></i> Process Edited Prompt</button>
         </div>
 
-        <div class="output-container">
+        <div>
             <h3>Output (Editable)</h3>
             <textarea id="output" placeholder="Output will appear here..."></textarea>
             <div class="button-group">
@@ -78,6 +79,11 @@
         let originalOutput = '';
 
         async function generatePrompt() {
+            const spinner = document.getElementById("loading1");
+            spinner.style.display = 'inline-block';
+            const genButton = document.getElementById("promptCreatorBtn");
+            genButton.disabled = true;
+
             const query = document.getElementById('userQuery').value;
             
             try {
@@ -96,12 +102,21 @@
             } catch (error) {
                 console.error('Error:', error);
             }
+
+            spinner.style.display = "none";
+            genButton.disabled = false;
         }
 
         async function processPrompt() {
+            const query = document.getElementById('userQuery').value;
             const originalPrompt = document.getElementById('promptEditor').getAttribute('data-original') || '';
             const editedPrompt = document.getElementById('promptEditor').value;
             
+            const spinner = document.getElementById("loading2");
+            spinner.style.display = 'inline-block';
+            const genButton = document.getElementById("infoAggBtn");
+            genButton.disabled = true;
+
             try {
                 const response = await fetch('/process_prompt', {
                     method: 'POST',
@@ -110,7 +125,8 @@
                     },
                     body: JSON.stringify({
                         original_prompt: originalPrompt,
-                        edited_prompt: editedPrompt
+                        edited_prompt: editedPrompt,
+                        original_query: query
                     })
                 });
                 
@@ -124,6 +140,8 @@
             } catch (error) {
                 console.error('Error:', error);
             }
+            spinner.style.display = "none";
+            genButton.disabled = false;
         }
 
         function saveOutput() {
