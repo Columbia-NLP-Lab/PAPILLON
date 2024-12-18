@@ -2,143 +2,101 @@
 
 
 
-## Features
-- **Dynamic Prompt Generation**: Generate initial prompts based on user queries.
-- **Prompt Editing and Tracking**: Record user edits with metadata like timestamps and length differences.
-- **LLM Integration (Placeholder)**: Simulate calls to a cloud-based LLM.
-- **HTML Interface**: Serve a basic user interface for interaction.
+## Key Features ✨
 
----
+- Privacy-focused prompt generation
+- Interactive prompt refinement interface
+- Comprehensive edit history tracking
+- Seamless integration with local and cloud LLMs
+- Privacy-oriented optimization pipeline
 
-## Installation and Setup
+## Prerequisites
 
-### Prerequisites
-- Python 3.8 or higher
-- `pip` (Python package installer)
+- Python 3.7+
+- FastAPI
+- DSPy framework
+- Language model access (local or cloud-based)
 
-### Steps to Run the Application
+## Installation
 
-1. **Clone the Repository**:
-   ```bash
-   git clone <repository_url>
-   cd <repository_directory>
-   ```
+1. Clone the repository:
+```bash
+git clone https://github.com/Columbia-NLP-Lab/PAPILLON.git
+```
 
-2. **Create a Virtual Environment (Optional but Recommended)**:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+2. Install dependencies:
+```bash
+pip install fastapi uvicorn jinja2 pydantic dspy
+```
 
-3. **Install Dependencies**:
-   Create a `requirements.txt` file with the following content:
-   ```text
-   fastapi
-   uvicorn
-   pydantic
-   jinja2
-   ```
-   Then run:
-   ```bash
-   pip install -r requirements.txt
-   ```
+3. Configure Papillon framework:
 
-4. **Create Directory Structure**:
-   Ensure your project directory has the following structure:
-   ```
-   .
-   |-- app.py                 # Main application file
-   |-- requirements.txt       # List of dependencies
-   |-- static/                # Directory for static files (CSS/JS/images)
-   |-- templates/             # Directory for HTML templates
-       |-- index.html         # Main template file
-   ```
 
-5. **Run the Application**:
-   Start the server using:
-   ```bash
-   uvicorn app:app --host 0.0.0.0 --port 8012
-   ```
-   The application will be accessible at `http://127.0.0.1:8012/`.
+## Configuration and Deployment
 
----
+### Standard Deployment
+```bash
+python app.py
+```
 
-## API Endpoints
+### Advanced Configuration
+```bash
+python app.py --port 3012 --openai_model gpt-4-mini --server_port 8012
+```
 
-### 1. Root Endpoint (`/`)
-- **Type**: GET
-- **Description**: Serves the main HTML interface (`index.html`).
+### Configuration Parameters
 
-### 2. Generate Prompt (`/generate_prompt`)
-- **Type**: POST
-- **Input**:
-  ```json
-  {
-      "query": "<user_query_string>"
-  }
-  ```
-- **Response**:
-  ```json
-  {
-      "prompt": "<generated_prompt_string>"
-  }
-  ```
+The application accepts the following parameters:
+- `--port`: Local model host port (default: 3012)
+- `--openai_model`: OpenAI model specification (default: gpt-4o-mini)
+- `--prompt_file`: DSPy-optimized prompt file path
+- `--model_name`: Huggingface model identifier (default: meta-llama/Llama-3.1-8B-Instruct)
+- `--server_port`: FastAPI server port (default: 8012)
 
-### 3. Process Prompt (`/process_prompt`)
-- **Type**: POST
-- **Input**:
-  ```json
-  {
-      "original_prompt": "<original_prompt_string>",
-      "edited_prompt": "<edited_prompt_string>"
-  }
-  ```
-- **Response**:
-  ```json
-  {
-      "output": "<final_output_string>",
-      "edit_record": {
-          "timestamp": "<ISO_timestamp>",
-          "original": "<original_prompt_string>",
-          "edited": "<edited_prompt_string>",
-          "diff_length": <length_difference>
-      }
-  }
-  ```
+### Accessing the Interface
 
----
+The application interface is available at:
+```
+http://127.0.0.1:8012
+```
 
-## Directory and File Overview
+## Usage Guidelines
 
-- **`app.py`**: Main application logic, including API endpoints and pipeline handling.
-- **`requirements.txt`**: Dependencies for running the application.
-- **`static/`**: Directory for static assets (e.g., CSS, JS files, images).
-- **`templates/`**: Directory for Jinja2 HTML templates.
-  - `index.html`: Main HTML page served at the root endpoint.
+1. Input your query through the interface
+2. Review the generated privacy-conscious prompt
+3. Refine the prompt using the editing interface
+4. Submit for processing
+5. Review output and modification history
 
----
+## System Architecture
+
+The application implements a sophisticated pipeline:
+1. Initial prompt generation
+2. User-driven refinement
+3. Language model processing
+4. Privacy-aware output synthesis
+
+## Privacy Framework
+
+The system prioritizes privacy through:
+- Pre-processing prompt review
+- Comprehensive change tracking
+- Local model processing options
+- Privacy-focused output verification
+
+## API Documentation
+
+### Endpoints
+- `GET /`: Primary interface
+- `POST /generate_prompt`: Initial prompt generation
+- `POST /process_prompt`: Refined prompt processing
 
 
 
-## Troubleshooting
+## Support
 
-1. **Dependency Issues**:
-   Ensure all dependencies in `requirements.txt` are installed. Use:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-2. **Port Already in Use**:
-   If port 8012 is busy, run the server on a different port:
-   ```bash
-   uvicorn app:app --host 0.0.0.0 --port <new_port>
-   ```
-
-3. **Template Errors**:
-   Ensure the `templates/` directory exists and contains `index.html`.
-
----
-
-Feel free to reach out for further questions or enhancements!
-
+For technical assistance or feature requests, please:
+1. Review existing documentation
+2. Check open/closed issues
+3. Submit bug reports 
 
