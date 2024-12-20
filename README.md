@@ -25,6 +25,8 @@ We have an **end-to-end** tutorial notebook for defining and optimizing your own
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/siyan-sylvia-li/PAPILLON/blob/main/papillon_tutorial.ipynb)
 
+We now also have a **USER INTERFACE**! Please navigate to the `papillon_ui/` folder. Here is a [video tutorial](https://youtu.be/4mn0tHeDnk4) for the UI!
+
 ### To Reproduce Our Results
 Please refer to the `papillon_v1.0` branch for the original version of our code and data to reproduce the results.
 
