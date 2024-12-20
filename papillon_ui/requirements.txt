@@ -1,0 +1,9 @@
+
+# requirements.txt
+fastapi==0.68.1
+uvicorn==0.15.0
+jinja2==3.0.1
+python-dateutil==2.8.2
+aiofiles==0.7.0
+python-multipart==0.0.5
+pydantic==1.8.2
