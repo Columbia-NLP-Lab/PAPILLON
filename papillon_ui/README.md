@@ -1,6 +1,9 @@
 # PAPILLON UI
 
+Special thanks to Vetha for writing most of the user interface!!
 
+## Tutorial
+Please see a video tutorial on how the PAPILLON UI works [here](https://youtu.be/4mn0tHeDnk4).
 
 ## Key Features ✨
 
