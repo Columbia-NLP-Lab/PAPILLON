@@ -3,7 +3,7 @@ import dspy
 from dspy import Example
 
 from llm_judge import LLMJudge
-from run_llama_dspy import PrivacyOnePrompter
+from run_llama_dspy import PAPILLON
 import pandas
 from dspy.evaluate.evaluate import Evaluate
 
@@ -37,14 +37,14 @@ def metric(gold, pred, trace=None):
     if trace is not None: return final_total_score >= 1
     return final_total_score
 
-def metric_finegrained(gold, pred):
+def metric_finegrained(gold, pred, openai_lm):
     og_model_output, og_user_query, og_pii = gold.target_response, gold.user_query, gold.pii_str
     pred_prompt, pred_out = pred.prompt, pred.output
     if pred_prompt and (len(pred_prompt) == 0):
         return -1, -1
-    with dspy.context(lm=openai_lm_gpt4o):
+    with dspy.context(lm=openai_lm):
         score_dict = llm_judge(user_query=og_user_query, new_resp=pred_out, og_resp=og_model_output,
-                                            updated_query=pred_prompt, ppi_str=og_pii)
+                                            updated_query=pred_prompt, pii_str=og_pii)
     return score_dict.quality, score_dict.leakage / len(set(og_pii.split("||")))
 
 
@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
 
     train, val, test = synthesize_tvt(args.data_file)
-    zeroshot = PrivacyOnePrompter(local_lm, openai_lm)
+    zeroshot = PAPILLON(openai_lm)
     INCOMPLIANCE = 0
     evaluate = Evaluate(metric=metric, devset=val, num_threads=8, display_progress=True, display_table=5, max_errors=100)
     try:

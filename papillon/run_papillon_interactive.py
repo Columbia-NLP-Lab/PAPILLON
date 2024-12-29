@@ -1,4 +1,4 @@
-from run_llama_dspy import PrivacyOnePrompter
+from run_llama_dspy import PAPILLON
 from argparse import ArgumentParser
 import dspy
 from evaluate_papillon import parse_model_prompt
@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     openai_lm = dspy.OpenAI(model=args.openai_model, max_tokens=4000)
 
-    priv_prompt = PrivacyOnePrompter(local_lm, openai_lm)
+    priv_prompt = PAPILLON(openai_lm)
     
     priv_prompt.load(args.prompt_file, use_legacy_loading=True)
 

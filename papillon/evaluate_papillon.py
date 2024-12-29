@@ -5,7 +5,7 @@ import dspy
 import tqdm
 import litellm
 from argparse import ArgumentParser
-from run_llama_dspy import PrivacyOnePrompter
+from run_llama_dspy import PAPILLON
 
 def parse_model_prompt(model_name):
     model_name = model_name.lower()
@@ -42,13 +42,17 @@ if __name__ == "__main__":
     qual_scores = []
     leak_scores = []
     all_user_queries = []
+    target = []
+    new_completion = []
+    new_prompt = []
+    all_pii = []
 
     local_lm = dspy.LM(f'openai/{args.model_name}', api_base=f"http://0.0.0.0:{args.port}/v1", api_key="", max_tokens=4000)
     dspy.configure(lm=local_lm)
 
     openai_lm = dspy.OpenAI(model=args.openai_model, max_tokens=4000)
     
-    priv_prompt = PrivacyOnePrompter(local_lm, openai_lm)
+    priv_prompt = PAPILLON(openai_lm)
     
 
     if args.prompt_file == "ORIGINAL":
@@ -66,17 +70,25 @@ if __name__ == "__main__":
         except litellm.exceptions.BadRequestError:
             continue
         if row["target_response"] is not None and isinstance(row["target_response"], str) and isinstance(row["pii_units"], str):
-            qual, leak = metric_finegrained(gold, pred)
+            qual, leak = metric_finegrained(gold, pred, openai_lm)
+            print(qual, leak)
             
-            if qual != -1:
+            if qual != -1 and leak != -1:
                 qual_scores.append(qual)
                 all_user_queries.append(row["user_query"])
-            if leak != -1:
                 leak_scores.append(leak)
+                target.append(row["target_response"])
+                new_completion.append(pred.output)
+                new_prompt.append(pred.prompt)
+                all_pii.append(row["pii_units"])
             result_df = pandas.DataFrame()
             result_df["quals"] = qual_scores
             result_df["leaks"] = leak_scores
             result_df["queries"] = all_user_queries
+            result_df["targets"] = target
+            result_df["papillon_completion"] = new_completion
+            result_df["papillon_prompt"] = new_prompt
+            result_df["pii_str"] = all_pii 
             result_df.to_csv(args.output_file_name)
     
     print("AVERAGE QUALITY SCORE", sum(qual_scores) / len(qual_scores))
