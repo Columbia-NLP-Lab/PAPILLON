@@ -17,48 +17,22 @@ class InfoAggregator(dspy.Signature):
     """
 
     userQuery = dspy.InputField(desc="The user's request to be fulfilled.")
-    modelExampleResponses = dspy.InputField(desc="You have the following information from a better language model responding to related query or queries. Complete the user query by referencing this information. Only you have access to this information.", format=lambda s: f'======\n\n{s.strip()}\n\n======')
+    modelExampleResponses = dspy.InputField(desc="Information from a more powerful language model responding to related queries. Complete the user query by referencing this information. Only you have access to this information.")
     finalOutput = dspy.OutputField()
 
 
-
-class PrivacyOnePrompter(dspy.Module):
-    def __init__(self, trusted_model, untrusted_model):
-        super().__init__()
+class PAPILLON(dspy.Module):
+    def __init__(self, untrusted_model):
         self.prompt_creater = dspy.ChainOfThought(CreateOnePrompt)
         self.info_aggregator = dspy.Predict(InfoAggregator)
-        self.trusted_model = trusted_model
-        dspy.configure(lm=self.trusted_model)
         self.untrusted_model = untrusted_model
-        
-    
+
     def forward(self, user_query):
         try:
-            prompt = self.prompt_creater(userQuery=user_query)
-        except ValueError:
-            return dspy.Prediction(
-                prompt="",
-                output="",
-                gptResponse=""
-            )
-        try:
-            response = self.untrusted_model(prompt.createdPrompt)[0]
-        except ValueError:
-            return dspy.Prediction(
-                prompt="",
-                output="",
-                gptResponse=""
-            )
-        try:
-            final_output = self.info_aggregator(userQuery=user_query, modelExampleResponses=response)
-        except ValueError:
-            return dspy.Prediction(
-                prompt="",
-                output="",
-                gptResponse=response
-            )
-        return dspy.Prediction(
-            prompt=prompt.createdPrompt,
-            output=final_output.finalOutput,
-            gptResponse=response
-        )
+            prompt = self.prompt_creater(userQuery=user_query).createdPrompt
+            response = self.untrusted_model(prompt)[0]
+            output = self.info_aggregator(userQuery=user_query, modelExampleResponses=response)
+        except Exception:
+            return dspy.Prediction(prompt="", output="", gptResponse="")
+
+        return dspy.Prediction(prompt=prompt, output=output.finalOutput, gptResponse=response)
